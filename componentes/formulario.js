@@ -35,7 +35,7 @@ export default function Formulario() {
 
   return (
     <View>
-      <Card mode="contained">
+      <Card mode='contained'>
         <Card.Content>
           <SafeAreaView style={{height:55}}>
           <TextInput

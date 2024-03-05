@@ -26,13 +26,20 @@ export default function Lista() {
    */
   const renderItem = ({ item }) => {
     const selecionado = item.id == pessoaSelecionada?.id;
-    const BotaoRemover = () => {
+    const Botoes = () => {
       return (
+        <>
+          <IconButton
+          icon="account-edit-outline"
+          mode='contained'
+          onPress={() => ({})}
+          />
         <IconButton
           icon="trash-can-outline"
           mode="contained"
           onPress={() => removerPessoa(pessoaSelecionada)}
         />
+        </>
       );
     };
     return (
@@ -40,7 +47,7 @@ export default function Lista() {
         title={item.nome}
         style={selecionado && styles.item_selecionado}
         onPress={() => selecionarPessoa(item)}
-        right={selecionado && BotaoRemover}></List.Item>
+        right={selecionado && Botoes}></List.Item>
     );
   };
   return (
