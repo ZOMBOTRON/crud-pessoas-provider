@@ -32,7 +32,7 @@ export default function Lista() {
           <IconButton
           icon="account-edit-outline"
           mode='contained'
-          onPress={() => ({})}
+          onPress={() => }
           />
         <IconButton
           icon="trash-can-outline"
