@@ -6,17 +6,21 @@ import { useState } from 'react';
 import { AppProvider } from './componentes/provider';
 import Formulario from './componentes/formulario';
 import Lista from './componentes/lista';
+import Filtro from './componentes/filtro';
 
 export default function App() {
   const [notificacaoVisivel, setNotificacaoVisivel] = useState(false);
   const onDismissNotificacao = () => setNotificacaoVisivel(false);
   const onAdicionarPessoa = () => setNotificacaoVisivel(true);
+  const [filtro, setFiltro] = useState('');
   return (
     <SafeAreaProvider>
       <AppProvider
         onAdicionarPessoa={onAdicionarPessoa}
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
-        onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}>
+        onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}
+        filtro={filtro}
+      >
         <SafeAreaView style={styles.container}>
           <Appbar.Header>
             <Appbar.Content title="Cadastro de pessoas" />
@@ -24,6 +28,7 @@ export default function App() {
           </Appbar.Header>
 
           <Formulario />
+          <Filtro onFilterChange={setFiltro} />
           <Lista />
 
           <Snackbar
@@ -44,6 +49,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#ecf0f1',
-    padding: 10,
+    padding: 8,
   },
 });

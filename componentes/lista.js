@@ -2,6 +2,7 @@ import { View, SafeAreaView, StyleSheet, FlatList } from 'react-native';
 import { List, Text, IconButton, Divider, useTheme } from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 /**
  * Este componente apresenta a lista de pessoas cadastradas.
@@ -24,6 +25,7 @@ export default function Lista() {
    * estiver selecionado, apresenta um botão que permite
    * excluir da lista de pessoas.
    */
+  
   const renderItem = ({ item }) => {
     const selecionado = item.id == pessoaSelecionada?.id;
 

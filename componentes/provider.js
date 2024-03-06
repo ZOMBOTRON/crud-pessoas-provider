@@ -78,17 +78,6 @@ export function AppProvider({
     }
   };
 
-  const editarPessoa = (pessoa) => {
-    const p = pessoas.filter((p) => p.id == pessoa.id);
-    setPessoas(lista);
-    if (pessoaSelecionada?.id == pessoa.id) {
-      setPessoaSelecionada(null);
-    }
-    if (onEditarPessoa) {
-      onEditarPessoa(pessoa);
-    }
-  }
-
   return (
     <AppContext.Provider
       value={{
