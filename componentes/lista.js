@@ -11,7 +11,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
  * um botão que permite excluir o item da lista de pessoas.
  */
 export default function Lista() {
-  const { pessoas, pessoaSelecionada, selecionarPessoa, removerPessoa } =
+  const { pessoas, pessoaSelecionada, selecionarPessoa, removerPessoa, editarPessoa } =
     useAppContext();
 
   const { colors, isV3 } = useTheme();
@@ -26,13 +26,14 @@ export default function Lista() {
    */
   const renderItem = ({ item }) => {
     const selecionado = item.id == pessoaSelecionada?.id;
+
     const Botoes = () => {
       return (
         <>
           <IconButton
           icon="account-edit-outline"
           mode='contained'
-          onPress={() => }
+          onPress={() => editarPessoa(pessoaSelecionada)}
           />
         <IconButton
           icon="trash-can-outline"
@@ -50,6 +51,7 @@ export default function Lista() {
         right={selecionado && Botoes}></List.Item>
     );
   };
+  
   return (
     <View style={styles.container}>
       <List.Section>
