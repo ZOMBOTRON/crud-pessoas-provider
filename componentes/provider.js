@@ -4,7 +4,7 @@ const AppContext = createContext();
 
 /**
  * Este componente funciona como o provider do contexto `AppContext`.
- * 
+ *
  * São fornecidos estes recursos:
  * * a lista de pessoas
  * * uma função para adicionar uma pessoa na lista
@@ -18,17 +18,18 @@ export function AppProvider({
   onAdicionarPessoa,
   onSelecionarPessoa,
   onRemoverPessoa,
+  onEditarPessoa,
 }) {
   const [pessoas, setPessoas] = useState([]);
   const [pessoaSelecionada, setPessoaSelecionada] = useState();
 
   /**
-   * Esta função recebe um parâmetro `nome`, cria um objeto 
+   * Esta função recebe um parâmetro `nome`, cria um objeto
    * com `id` igual ao timestamp atual e o adiciona
-   * na lista de pessoas. 
-   * 
+   * na lista de pessoas.
+   *
    * Dispara o evento `onAdicionarPessoa`.
-   * 
+   *
    * @param nome String
    */
   const adicionarPessoa = (nome) => {
@@ -45,9 +46,9 @@ export function AppProvider({
    * Esta função recebe um parâmetro `pessoa`, identifica
    * o item correspondente na lista de pessoas e,
    * se for encontrado, o remove da lista.
-   * 
+   *
    * Dispara o evento `onRemoverPessoa`.
-   * 
+   *
    * @param pessoa `{id, nome}`
    */
   const removerPessoa = (pessoa) => {
@@ -64,7 +65,7 @@ export function AppProvider({
   /**
    * Esta função recebe um parâmetro `pessoa` e determina
    * que o item correspondente na lista de pessoas está selecionado.
-   * 
+   *
    * Dispara o evento `onSelecionarPessoa`
    */
   const selecionarPessoa = (pessoa) => {
@@ -78,16 +79,24 @@ export function AppProvider({
     }
   };
 
-  const editarPessoa = (pessoa) => {
-    const p = pessoas.filter((p) => p.id == pessoa.id);
+  /**
+   * @description Esta função recebe um parâmetro `pessoaSelecionada` e `nomeNovaPessoa`.
+   *
+   * @param pessoaSelecionada `{id, nome}`
+   * @param nomeNovaPessoa String
+   * */
+  const editarPessoa = (pessoaSelecionada, nomeNovaPessoa) => {
+    const lista = pessoas.map((p) => {
+      if (p.id == pessoaSelecionada.id) {
+        p.nome = nomeNovaPessoa;
+      }
+      return p;
+    });
     setPessoas(lista);
-    if (pessoaSelecionada?.id == pessoa.id) {
-      setPessoaSelecionada(null);
-    }
     if (onEditarPessoa) {
       onEditarPessoa(pessoa);
     }
-  }
+  };
 
   return (
     <AppContext.Provider
@@ -97,7 +106,9 @@ export function AppProvider({
         removerPessoa,
         selecionarPessoa,
         pessoaSelecionada,
-      }}>
+        editarPessoa,
+      }}
+    >
       {children}
     </AppContext.Provider>
   );

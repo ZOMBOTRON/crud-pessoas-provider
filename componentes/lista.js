@@ -1,5 +1,13 @@
+import { useState } from 'react';
 import { View, SafeAreaView, StyleSheet, FlatList } from 'react-native';
-import { List, Text, IconButton, Divider, useTheme } from 'react-native-paper';
+import {
+  List,
+  Text,
+  IconButton,
+  Divider,
+  useTheme,
+  TextInput,
+} from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -11,9 +19,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
  * um botão que permite excluir o item da lista de pessoas.
  */
 export default function Lista() {
-  const { pessoas, pessoaSelecionada, selecionarPessoa, removerPessoa, editarPessoa } =
-    useAppContext();
+  const {
+    pessoas,
+    pessoaSelecionada,
+    selecionarPessoa,
+    removerPessoa,
+    editarPessoa,
+  } = useAppContext();
 
+  const [nomeNovaPessoa, setNomeNovaPessoa] = useState();
+  const [editar, setEditar] = useState(false);
   const { colors, isV3 } = useTheme();
   const safeArea = useSafeAreaInsets();
 
@@ -31,27 +46,31 @@ export default function Lista() {
       return (
         <>
           <IconButton
-          icon="account-edit-outline"
-          mode='contained'
-          onPress={() => editarPessoa(pessoaSelecionada)}
+            icon="account-edit-outline"
+            mode="contained"
+            onPress={() => setEditar(true)}
           />
-        <IconButton
-          icon="trash-can-outline"
-          mode="contained"
-          onPress={() => removerPessoa(pessoaSelecionada)}
-        />
+          <IconButton
+            icon="trash-can-outline"
+            mode="contained"
+            onPress={() => removerPessoa(pessoaSelecionada)}
+          />
         </>
       );
     };
     return (
-      <List.Item
-        title={item.nome}
-        style={selecionado && styles.item_selecionado}
-        onPress={() => selecionarPessoa(item)}
-        right={selecionado && Botoes}></List.Item>
+      <>
+        {editar && <TextInput />}
+        <List.Item
+          title={item.nome}
+          style={selecionado && styles.item_selecionado}
+          onPress={() => selecionarPessoa(item)}
+          right={selecionado && Botoes}
+        ></List.Item>
+      </>
     );
   };
-  
+
   return (
     <View style={styles.container}>
       <List.Section>
@@ -85,7 +104,7 @@ export default function Lista() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, minHeight:200 },
+  container: { flex: 1, minHeight: 200 },
   lista_mensagem_vazio: { marginHorizontal: 16 },
   cabecalho: {
     flex: 1,
