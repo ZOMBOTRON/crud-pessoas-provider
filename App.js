@@ -6,21 +6,26 @@ import { useState } from 'react';
 import { AppProvider } from './componentes/provider';
 import Formulario from './componentes/formulario';
 import Lista from './componentes/lista';
+import Help from './componentes/help';
 
 export default function App() {
   const [notificacaoVisivel, setNotificacaoVisivel] = useState(false);
   const onDismissNotificacao = () => setNotificacaoVisivel(false);
   const onAdicionarPessoa = () => setNotificacaoVisivel(true);
+  const [open, setOpen] = useState(false);
+  
+
   return (
     <SafeAreaProvider>
       <AppProvider
         onAdicionarPessoa={onAdicionarPessoa}
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}>
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={styles.container}icon="help-circle">
+          <Help style={styles.container} isOpen ={open} setOpen={setOpen} />
           <Appbar.Header>
             <Appbar.Content title="Cadastro de pessoas" />
-            <Appbar.Action icon="help-circle" />
+            <Appbar.Action icon="help-circle" onPress={() => setOpen(!open)}/>
           </Appbar.Header>
 
           <Formulario />
