@@ -20,16 +20,12 @@ export default function App() {
       <AppProvider
         onAdicionarPessoa={onAdicionarPessoa}
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
-<<<<<<< HEAD
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}
         onEditarPessoa={(pessoa) => console.log('editado', pessoa)}
       >
-        <SafeAreaView style={styles.container}>
-=======
+        <SafeAreaView style={styles.container}icon="help-circle"
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}>
-        <SafeAreaView style={styles.container}icon="help-circle">
           <Help style={styles.container} isOpen ={open} setOpen={setOpen} />
->>>>>>> 3df6d3523bb3262da2ca1f21fd4dd63cf866f9de
           <Appbar.Header>
             <Appbar.Content title="Cadastro de pessoas" />
             <Appbar.Action icon="help-circle" onPress={() => setOpen(!open)}/>

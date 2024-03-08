@@ -111,7 +111,6 @@ export function AppProvider({
         selecionarPessoa,
         pessoaSelecionada,
         editarPessoa,
-        getAvatarColor,
       }}
     >
       {children}
