@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     borderTopEndRadius: 0,
     borderEndEndRadius: 0,
-    borderRadius: '0',
+    borderRadius: 0,
+    
   },
 });

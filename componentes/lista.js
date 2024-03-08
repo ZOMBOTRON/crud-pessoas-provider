@@ -6,7 +6,7 @@ import {
   IconButton,
   Divider,
   useTheme,
-  TextInput,
+  Avatar,
 } from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -48,7 +48,12 @@ export default function Lista() {
           <IconButton
             icon="account-edit-outline"
             mode="contained"
-            onPress={() => setEditar(true)}
+            onPress={() => editarPessoa(pessoaSelecionada)}
+          />
+          <IconButton
+            icon="trash-can-outline"
+            mode="contained"
+            onPress={() => removerPessoa(pessoaSelecionada)}
           />
           <IconButton
             icon="trash-can-outline"
@@ -59,15 +64,17 @@ export default function Lista() {
       );
     };
     return (
-      <>
-        {editar && <TextInput />}
-        <List.Item
-          title={item.nome}
-          style={selecionado && styles.item_selecionado}
-          onPress={() => selecionarPessoa(item)}
-          right={selecionado && Botoes}
-        ></List.Item>
-      </>
+      <List.Item
+        title={item.nome}
+        style={selecionado && styles.item_selecionado}
+        onPress={() => selecionarPessoa(item)}
+        left={() => (
+          <View style={styles.avatar}>
+            <Avatar.Text size={40} label={item.iniciais} />
+          </View>
+        )}
+        right={selecionado && Botoes}
+      ></List.Item>
     );
   };
 
@@ -115,5 +122,9 @@ const styles = StyleSheet.create({
   },
   item_selecionado: {
     backgroundColor: 'lightgray',
+  },
+  avatar: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

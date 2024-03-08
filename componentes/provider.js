@@ -33,8 +33,12 @@ export function AppProvider({
    * @param nome String
    */
   const adicionarPessoa = (nome) => {
+    const iniciais = nome
+      .split(' ')
+      .map((n) => n[0]?.toUpperCase())
+      .join('');
     const id = new Date().getTime();
-    const pessoa = { id, nome };
+    const pessoa = { id, nome, iniciais };
     const lista = [...pessoas, pessoa];
     setPessoas(lista);
     if (onAdicionarPessoa) {
@@ -107,6 +111,7 @@ export function AppProvider({
         selecionarPessoa,
         pessoaSelecionada,
         editarPessoa,
+        getAvatarColor,
       }}
     >
       {children}
