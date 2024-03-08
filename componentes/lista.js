@@ -1,5 +1,5 @@
 import { View, SafeAreaView, StyleSheet, FlatList } from 'react-native';
-import { List, Text, IconButton, Divider, useTheme } from 'react-native-paper';
+import { List, Text, IconButton, Divider, useTheme, Avatar } from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -31,15 +31,15 @@ export default function Lista() {
       return (
         <>
           <IconButton
-          icon="account-edit-outline"
-          mode='contained'
-          onPress={() => editarPessoa(pessoaSelecionada)}
+            icon="account-edit-outline"
+            mode='contained'
+            onPress={() => editarPessoa(pessoaSelecionada)}
           />
-        <IconButton
-          icon="trash-can-outline"
-          mode="contained"
-          onPress={() => removerPessoa(pessoaSelecionada)}
-        />
+          <IconButton
+            icon="trash-can-outline"
+            mode="contained"
+            onPress={() => removerPessoa(pessoaSelecionada)}
+          />
         </>
       );
     };
@@ -48,10 +48,15 @@ export default function Lista() {
         title={item.nome}
         style={selecionado && styles.item_selecionado}
         onPress={() => selecionarPessoa(item)}
-        right={selecionado && Botoes}></List.Item>
+        left={() => (
+          <View style={styles.avatar}>
+            <Avatar.Text size={40} label={item.iniciais}/>
+          </View>
+        )}
+         right={selecionado && Botoes}></List.Item>
     );
   };
-  
+
   return (
     <View style={styles.container}>
       <List.Section>
@@ -97,4 +102,8 @@ const styles = StyleSheet.create({
   item_selecionado: {
     backgroundColor: 'lightgray',
   },
+  avatar:{
+    flexDirection: 'row', 
+    alignItems: 'center',
+  }
 });
