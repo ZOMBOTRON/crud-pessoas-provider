@@ -12,14 +12,12 @@ export default function App() {
   const [notificacaoVisivel, setNotificacaoVisivel] = useState(false);
   const onDismissNotificacao = () => setNotificacaoVisivel(false);
   const onAdicionarPessoa = () => setNotificacaoVisivel(true);
-  const [filtro, setFiltro] = useState('');
   return (
     <SafeAreaProvider>
       <AppProvider
         onAdicionarPessoa={onAdicionarPessoa}
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}
-        filtro={filtro}
       >
         <SafeAreaView style={styles.container}>
           <Appbar.Header>
@@ -28,7 +26,7 @@ export default function App() {
           </Appbar.Header>
 
           <Formulario />
-          <Filtro onFilterChange={setFiltro} />
+          <Filtro />
           <Lista />
 
           <Snackbar
@@ -42,6 +40,7 @@ export default function App() {
         </SafeAreaView>
       </AppProvider>
     </SafeAreaProvider>
+    
   );
 }
 
