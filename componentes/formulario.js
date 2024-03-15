@@ -1,5 +1,5 @@
 import { View, StyleSheet, Platform, SafeAreaView } from 'react-native';
-import { Card, TextInput, Button } from 'react-native-paper';
+import { Card, TextInput } from 'react-native-paper';
 import { useState, useRef } from 'react';
 import { useAppContext } from './provider';
 
