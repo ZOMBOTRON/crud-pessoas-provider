@@ -90,15 +90,21 @@ export function AppProvider({
    * @param nomeNovaPessoa String
    * */
   const editarPessoa = (pessoaSelecionada, nomeNovaPessoa) => {
+    console.log(pessoaSelecionada, nomeNovaPessoa);
+    const iniciais = nomeNovaPessoa
+      .split(' ')
+      .map((n) => n[0]?.toUpperCase())
+      .join('');
     const lista = pessoas.map((p) => {
       if (p.id == pessoaSelecionada.id) {
         p.nome = nomeNovaPessoa;
+        p.iniciais = iniciais;
       }
       return p;
     });
     setPessoas(lista);
     if (onEditarPessoa) {
-      onEditarPessoa(pessoa);
+      onEditarPessoa(pessoaSelecionada);
     }
   };
 
