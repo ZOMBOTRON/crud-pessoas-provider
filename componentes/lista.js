@@ -1,5 +1,9 @@
-import { useState } from 'react';
-import { View, SafeAreaView, StyleSheet, FlatList } from 'react-native';
+import { View,
+  StyleSheet,
+  FlatList,
+  Alert,
+  Modal,
+  Pressable} from 'react-native';
 import {
   List,
   Text,
@@ -7,9 +11,11 @@ import {
   Divider,
   useTheme,
   Avatar,
+  TextInput,
 } from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useState } from 'react';
 
 /**
  * Este componente apresenta a lista de pessoas cadastradas.
@@ -27,10 +33,11 @@ export default function Lista() {
     editarPessoa,
   } = useAppContext();
 
-  const [nomeNovaPessoa, setNomeNovaPessoa] = useState();
-  const [editar, setEditar] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
   const { colors, isV3 } = useTheme();
   const safeArea = useSafeAreaInsets();
+  const [nome , setNome] = useState('');
+
 
   /**
    * Esta função é utilizada para renderizar um item da lista.
@@ -42,18 +49,16 @@ export default function Lista() {
   const renderItem = ({ item }) => {
     const selecionado = item.id == pessoaSelecionada?.id;
 
+
     const Botoes = () => {
+
       return (
         <>
           <IconButton
+            key={item.id}
             icon="account-edit-outline"
             mode="contained"
-            onPress={() => editarPessoa(pessoaSelecionada)}
-          />
-          <IconButton
-            icon="trash-can-outline"
-            mode="contained"
-            onPress={() => removerPessoa(pessoaSelecionada)}
+            onPress={() => {setModalVisible(true), setNome(item.nome)}}
           />
           <IconButton
             icon="trash-can-outline"
@@ -63,7 +68,9 @@ export default function Lista() {
         </>
       );
     };
+
     return (
+      <>
       <List.Item
         title={item.nome}
         style={selecionado && styles.item_selecionado}
@@ -75,6 +82,7 @@ export default function Lista() {
         )}
         right={selecionado && Botoes}
       ></List.Item>
+      </>
     );
   };
 
@@ -106,6 +114,37 @@ export default function Lista() {
           </Text>
         )}
       />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Editar nome da pessoa selecionada
+            </Text>
+            <TextInput
+              style={styles.editTextInput}
+              value={nome}
+              onChangeText={(text) => setNome(text)}
+            />
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => setModalVisible(!modalVisible)}>
+              <Text style={styles.textStyle}>Cancelar</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.button, styles.buttonClose]}
+              onPress={() => (setModalVisible(!modalVisible),editarPessoa(pessoaSelecionada,nome))}>
+              <Text style={styles.textStyle}>Salvar</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -126,5 +165,56 @@ const styles = StyleSheet.create({
   avatar: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  editContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  editTextInput: {
+    borderBottomWidth: 1,
+    padding: 10,
+    marginBottom: 20,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: '#F194FF',
+  },
+  buttonClose: {
+    backgroundColor: '#2196F3',
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: 'center',
   },
 });
