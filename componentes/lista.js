@@ -1,9 +1,6 @@
 import { View,
   StyleSheet,
-  FlatList,
-  Alert,
-  Modal,
-  Pressable} from 'react-native';
+  FlatList} from 'react-native';
 import {
   List,
   Text,
@@ -11,11 +8,11 @@ import {
   Divider,
   useTheme,
   Avatar,
-  TextInput,
 } from 'react-native-paper';
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useState } from 'react';
+import Editar from './editar';
 
 /**
  * Este componente apresenta a lista de pessoas cadastradas.
@@ -34,9 +31,10 @@ export default function Lista() {
   } = useAppContext();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [nome , setNome] = useState('');
+
   const { colors, isV3 } = useTheme();
   const safeArea = useSafeAreaInsets();
-  const [nome , setNome] = useState('');
 
 
   /**
@@ -114,37 +112,11 @@ export default function Lista() {
           </Text>
         )}
       />
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal has been closed.');
-          setModalVisible(!modalVisible);
-        }}>
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Editar nome da pessoa selecionada
-            </Text>
-            <TextInput
-              style={styles.editTextInput}
-              value={nome}
-              onChangeText={(text) => setNome(text)}
-            />
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Cancelar</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => (setModalVisible(!modalVisible),editarPessoa(pessoaSelecionada,nome))}>
-              <Text style={styles.textStyle}>Salvar</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
+      <Editar
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+      nome={nome}
+      setNome={setNome} />
     </View>
   );
 }
@@ -165,56 +137,5 @@ const styles = StyleSheet.create({
   avatar: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  editContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  editTextInput: {
-    borderBottomWidth: 1,
-    padding: 10,
-    marginBottom: 20,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
+  }
 });
