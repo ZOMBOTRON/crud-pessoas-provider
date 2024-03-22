@@ -27,7 +27,6 @@ export default function Lista() {
     pessoaSelecionada,
     selecionarPessoa,
     removerPessoa,
-    editarPessoa,
   } = useAppContext();
 
   const [modalVisible, setModalVisible] = useState(false);
