@@ -20,6 +20,10 @@ export default function App() {
       <AppProvider
         onAdicionarPessoa={onAdicionarPessoa}
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
+        onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}
+        onEditarPessoa={(pessoa) => console.log('editado', pessoa)}
+      >
+        <SafeAreaView style={styles.container}icon="help-circle"
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}>
         <SafeAreaView style={styles.container}icon="help-circle">
           <Help style={styles.help} visible ={visible} setVisible={setVisible} />
@@ -36,9 +40,11 @@ export default function App() {
             onDismiss={onDismissNotificacao}
             action={{
               label: 'OK',
-            }}>
+            }}
+          >
             Cadastro realizado com sucesso!
           </Snackbar>
+          </SafeAreaView>
         </SafeAreaView>
       </AppProvider>
     </SafeAreaProvider>
