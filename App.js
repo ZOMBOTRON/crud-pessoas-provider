@@ -12,7 +12,7 @@ export default function App() {
   const [notificacaoVisivel, setNotificacaoVisivel] = useState(false);
   const onDismissNotificacao = () => setNotificacaoVisivel(false);
   const onAdicionarPessoa = () => setNotificacaoVisivel(true);
-  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(false);
   
 
   return (
@@ -22,10 +22,10 @@ export default function App() {
         onSelecionarPessoa={(pessoa) => console.log('selecionado', pessoa)}
         onRemoverPessoa={(pessoa) => console.log('removido', pessoa)}>
         <SafeAreaView style={styles.container}icon="help-circle">
-          <Help style={styles.container} isOpen ={open} setOpen={setOpen} />
+          <Help style={styles.help} visible ={visible} setVisible={setVisible} />
           <Appbar.Header>
             <Appbar.Content title="Cadastro de pessoas" />
-            <Appbar.Action icon="help-circle" onPress={() => setOpen(!open)}/>
+            <Appbar.Action icon="help-circle" onPress={() => setVisible(!visible)}/>
           </Appbar.Header>
 
           <Formulario />
@@ -51,4 +51,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ecf0f1',
     padding: 10,
   },
+  help:{
+    flex: 1,
+    position: "absolute"
+    
+  }
 });
