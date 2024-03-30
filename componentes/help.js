@@ -25,7 +25,7 @@ export default function help({ visible, setVisible }) {
                         - Felipe Nóbrega
                     </Text>
                     <Text style={styles.text}>
-                        - Kauan
+                        - Kauã Gabriel Martins Gomes
                     </Text>
                 </View>
                 <Text style={styles.text} variant="headlineLarge">
@@ -47,7 +47,7 @@ export default function help({ visible, setVisible }) {
                 </Text>
                 <View style={styles.modalButton}>
                     <TouchableOpacity style={styles.button} onPress={() => { setVisible(!visible) }}>
-                        <Text style={styles.textStyle}>Press Here</Text>
+                        <Text style={styles.textStyle}>ok</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -86,7 +86,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignContent: 'center',
         marginTop: 20
-
     }
 
 });
