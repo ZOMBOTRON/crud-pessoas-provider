@@ -5,7 +5,7 @@ import { View } from 'react-native-web';
 
 
 export default function help({ visible, setVisible }) {
-    if (visible) {
+    
         return (
             <Modal
                 style={styles.modal}
@@ -53,9 +53,7 @@ export default function help({ visible, setVisible }) {
 
             </Modal>
         )
-    } else {
-        <></>
-    }
+   
 
 }
 const styles = StyleSheet.create({
