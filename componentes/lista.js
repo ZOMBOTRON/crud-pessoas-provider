@@ -16,16 +16,17 @@ import {
 import { useAppContext } from './provider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Editar from './editar';
-
+import Remover from './remover';
 export default function Lista() {
   const {
     pessoas,
     pessoaSelecionada,
     selecionarPessoa,
-    removerPessoa,
+    
   } = useAppContext();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [visible, setVisible] = useState(false);
   const [nome, setNome] = useState('');
   const [searchText, setSearchText] = useState('');
 
@@ -49,7 +50,10 @@ export default function Lista() {
         <IconButton
           icon="trash-can-outline"
           mode="contained"
-          onPress={() => removerPessoa(pessoaSelecionada)}
+          onPress={() => {
+            setVisible(!visible);
+            console.log(pessoaSelecionada)
+          }}
         />
       </>
     );
@@ -102,6 +106,12 @@ export default function Lista() {
         nome={nome}
         setNome={setNome}
       />
+      <Remover
+        pessoaSelecionada={pessoaSelecionada}
+        visible={visible}
+        setVisible={setVisible}
+      />
+      
     </View>
   );
 }
